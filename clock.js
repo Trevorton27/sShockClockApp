@@ -21,14 +21,17 @@ function showTime() {
         session = "PM";
     }
 
+
     hour = (hour < 10) ? "0" + hour : hour;
     min = (min < 10) ? "0" + min : min;
     sec = (sec < 10) ? "0" + sec : sec;
+    day = (day < 10) ? "0" + day : day;
 
     var time = hour + ":" + min + ":" + sec + " " + session;
 
 
-    document.getElementById("clock").innerText = time + date;
+    document.getElementById("clock").innerText = time;
+    document.getElementById("calendar").innerText = date;
 
 
 }

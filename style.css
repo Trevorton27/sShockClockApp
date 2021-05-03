@@ -1,0 +1,26 @@
+body{
+    background-color: #696969;
+}
+h1{
+    color: orangered;
+    background-color: beige;
+    text-align: center;
+    font-family: fantasy;
+    font-size: 50px;
+    line-height: 3em;
+    text-decoration: underline;
+    text-decoration-color: black;
+    border-style: outset;
+    border-block-width: 5px;  
+    border-color: black;
+
+
+
+}
+h2{
+    color: beige;
+    font-family: Tahoma;
+    font-size: 40px;
+
+
+}
