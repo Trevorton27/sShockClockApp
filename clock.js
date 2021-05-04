@@ -1,39 +1,81 @@
 function showTime() {
-    var date = new Date();
-    var hour = date.getHours();
-    var min = date.getMinutes();
-    var sec = date.getSeconds();
-    var session = "AM";
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    var dayWeek = days[date.getDay()];
-    var month = months[date.getMonth()];
-    var day = date.getDate();
-    var year = date.getFullYear();
+  const time = new Date();
+  const hour = time.getHours();
+  const minutes = addLeadingZero(time.getMinutes());
+  const seconds = addLeadingZero(time.getSeconds());
+  const isAm = hour < 12 || hour === 0;
+  let amPm = isAm ? 'AM' : 'PM';
 
-    var date = dayWeek + ", " + month + " " + day + ", " + year;
-
-    if (hour == 0) {
-        hour = 12;
-    }
-    if (hour > 12) {
-        hour = hour - 12;
-        session = "PM";
-    }
-
-
-    hour = (hour < 10) ? "0" + hour : hour;
-    min = (min < 10) ? "0" + min : min;
-    sec = (sec < 10) ? "0" + sec : sec;
-    day = (day < 10) ? "0" + day : day;
-
-    var time = hour + ":" + min + ":" + sec + " " + session;
-
-
-    document.getElementById("clock").innerText = time;
-    document.getElementById("calendar").innerText = date;
-
-
+  const displayTime = `${formatHour(hour)}:${minutes}:${seconds} ${amPm}`;
+  document.getElementById('clock').innerText = displayTime;
 }
-setInterval(showTime, 1000);
+
+function addLeadingZero(number) {
+  return number < 10 ? '0' + number : number;
+}
+
+function formatHour(hour) {
+  hour = hour >= 13 ? hour - 12 : hour;
+
+  hour = hour === 0 ? hour + 12 : hour;
+  return hour;
+}
+
+function showDate() {
+  const date = new Date();
+
+  const day = days[date.getDay()];
+  const month = months[date.getMonth()];
+  const dateToday = date.getDate();
+  const year = date.getFullYear();
+
+  const displayDate = `${day}, ${month} ${formatDateSuffix(dateToday)} ${year}`;
+
+  document.getElementById('calendar').innerText = displayDate;
+}
+
+function formatDateSuffix(date) {
+  if (date < 10 || date > 20) {
+    switch (date % 10) {
+      case 1:
+        return `${date}st`;
+      case 2:
+        return `${date}nd`;
+      case 3:
+        return `${date}rd`;
+    }
+  }
+  return `${date}th`;
+}
+
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+const days = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+];
+
 showTime();
+showDate();
+
+setInterval(() => {
+  showTime();
+  showDate();
+}, 1000);
